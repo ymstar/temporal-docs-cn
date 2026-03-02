@@ -64,7 +64,7 @@ export function DocsHeader() {
           <SearchDialog />
 
           <Button variant="ghost" size="icon" asChild>
-            <Link href="https://github.com/temporalio/temporal" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/ymstar/temporal-docs-cn" target="_blank" rel="noopener noreferrer" title="查看源码">
               <Github className="h-5 w-5" />
             </Link>
           </Button>

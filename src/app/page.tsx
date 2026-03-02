@@ -46,7 +46,7 @@ export default function Home() {
 
           <div className="ml-auto flex items-center space-x-4">
             <Button variant="ghost" size="icon" asChild>
-              <Link href="https://github.com/temporalio/temporal" target="_blank" rel="noopener noreferrer">
+              <Link href="https://github.com/ymstar/temporal-docs-cn" target="_blank" rel="noopener noreferrer" title="查看源码">
                 <Github className="h-5 w-5" />
               </Link>
             </Button>
@@ -295,7 +295,7 @@ export default function Home() {
         <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-              <div className="col-span-1 md:col-span-2">
+              <div>
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold text-xl">T</span>
@@ -307,10 +307,11 @@ export default function Home() {
                 </p>
                 <div className="flex gap-4">
                   <a
-                    href="https://github.com/temporalio/temporal"
+                    href="https://github.com/ymstar/temporal-docs-cn"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"
+                    title="查看源码"
                   >
                     <Github className="h-6 w-6" />
                   </a>
@@ -352,6 +353,34 @@ export default function Home() {
               </div>
 
               <div>
+                <h4 className="font-semibold text-lg mb-4">项目资源</h4>
+                <ul className="space-y-2 text-gray-400">
+                  <li>
+                    <a
+                      href="https://github.com/ymstar/temporal-docs-cn"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-2 text-sm"
+                    >
+                      <Github className="h-4 w-4" />
+                      项目源码
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/ymstar/temporal-docs-cn/issues"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors flex items-center gap-2 text-sm"
+                    >
+                      <Users className="h-4 w-4" />
+                      问题反馈
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
                 <h4 className="font-semibold text-lg mb-4">官方资源</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
@@ -373,7 +402,7 @@ export default function Home() {
                       className="hover:text-white transition-colors flex items-center gap-2 text-sm"
                     >
                       <Github className="h-4 w-4" />
-                      GitHub 仓库
+                      Temporal 官方仓库
                     </a>
                   </li>
                   <li>
