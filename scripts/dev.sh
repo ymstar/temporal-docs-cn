@@ -1,11 +1,10 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-# 自定义端口：可以通过环境变量 PORT 覆盖，默认 5000
-PORT=${PORT:-5000}
+PORT=5000
 COZE_WORKSPACE_PATH="${COZE_WORKSPACE_PATH:-$(pwd)}"
 NODE_ENV=development
-DEPLOY_RUN_PORT=${DEPLOY_RUN_PORT:-$PORT}
+DEPLOY_RUN_PORT=5000
 
 cd "${COZE_WORKSPACE_PATH}"
 

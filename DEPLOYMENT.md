@@ -1,218 +1,345 @@
-# GitHub Pages 部署指南
+# Temporal 中文文档站 - 部署指南
 
-## 前置要求
+## 项目简介
 
-1. GitHub 账户
-2. Git 已安装
-3. 项目已推送到 GitHub
+本项目是 Temporal 官方文档的中文翻译版本，基于 Next.js 16 和 TypeScript 构建。项目提供了完整的中文文档站点，包括快速开始、开发指南、SDK 文档、部署指南和社区资源等核心板块。
 
-## 方案选择
+## 技术栈
 
-由于本项目使用 Next.js App Router，我们推荐以下部署方案：
+- **框架**: Next.js 16 (App Router)
+- **语言**: TypeScript 5
+- **UI 组件**: shadcn/ui (基于 Radix UI)
+- **样式**: Tailwind CSS 4
+- **包管理器**: pnpm
 
-### 推荐方案：使用 Vercel（最简单）
+## 本地运行
 
-**为什么推荐 Vercel？**
-- ✅ Next.js 官方推荐
-- ✅ 自动部署，零配置
-- ✅ 支持所有 Next.js 功能（API、ISR 等）
-- ✅ 免费额度足够使用
-- ✅ 全球 CDN 加速
+### 前置要求
 
-**步骤：**
-1. 访问 [vercel.com](https://vercel.com)
-2. 使用 GitHub 账号登录
-3. 导入你的 GitHub 仓库
-4. 点击 "Deploy"
+- Node.js 18+
+- pnpm 9+
 
-**就这么简单！** 🎉
+### 安装依赖
 
----
-
-### 方案 B：GitHub Pages（静态导出）
-
-**限制：**
-- ❌ 不支持 API Routes
-- ❌ 不支持 ISR（增量静态再生）
-- ❌ 不支持服务器端功能
-- ✅ 仅适用于纯静态文档站点
-
-如果你的项目是纯静态内容（如文档站），可以使用此方案。
-
-#### 步骤 1：配置 Next.js 导出
-
-创建或修改 `next.config.ts`：
-
-```typescript
-import type { NextConfig } from 'next';
-import path from 'path';
-
-const nextConfig: NextConfig = {
-  // 导出为静态 HTML
-  output: 'export',
-
-  // 图片域名配置（如果使用）
-  images: {
-    unoptimized: true, // GitHub Pages 不支持图片优化
-  },
-
-  // 基础路径（如果你的仓库名不是 username.github.io）
-  // 如果你的仓库是 username/temporal-docs-cn
-  // base path 就是 '/temporal-docs-cn'
-  basePath: '/temporal-docs-cn',
-
-  // 资源路径前缀（与 basePath 一致）
-  assetPrefix: '/temporal-docs-cn',
-};
-
-export default nextConfig;
+```bash
+pnpm install
 ```
 
-#### 步骤 2：创建 GitHub Actions 工作流
+### 启动开发服务器
 
-创建 `.github/workflows/deploy.yml`：
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './out'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+```bash
+pnpm run dev
 ```
 
-#### 步骤 3：修改 package.json
+访问 `http://localhost:5000` 查看站点。
 
-确保构建命令使用静态导出：
+### 构建生产版本
 
-```json
-{
-  "scripts": {
-    "build": "next build",  // 已配置 output: 'export'
-    "dev": "pnpm run dev",
-    "start": "pnpm run start"
-  }
+```bash
+pnpm run build
+```
+
+### 启动生产服务器
+
+```bash
+pnpm run start
+```
+
+## 部署方式
+
+### 1. Vercel 部署（推荐）
+
+Vercel 是 Next.js 官方推荐的部署平台，提供零配置部署。
+
+#### 部署步骤
+
+1. **推送到 GitHub**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin <your-github-repo-url>
+   git push -u origin main
+   ```
+
+2. **在 Vercel 导入项目**
+   - 访问 [vercel.com](https://vercel.com)
+   - 点击 "New Project"
+   - 导入你的 GitHub 仓库
+   - 点击 "Deploy"
+
+3. **配置环境变量（如有需要）**
+   在 Vercel 项目设置中添加必要的环境变量。
+
+#### 自定义域名
+
+在 Vercel 项目设置中可以配置自定义域名。
+
+### 2. Docker 部署
+
+#### 构建镜像
+
+```dockerfile
+# Dockerfile
+FROM node:18-alpine AS base
+
+# 安装依赖
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
+
+# 构建
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN corepack enable pnpm && pnpm run build
+
+# 运行
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+USER nextjs
+EXPOSE 3000
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+CMD ["node", "server.js"]
+```
+
+#### 构建和运行
+
+```bash
+# 构建镜像
+docker build -t temporal-docs-cn .
+
+# 运行容器
+docker run -p 3000:3000 temporal-docs-cn
+```
+
+### 3. 传统服务器部署
+
+#### 使用 PM2
+
+```bash
+# 安装 PM2
+npm install -g pm2
+
+# 构建项目
+pnpm run build
+
+# 使用 PM2 启动
+pm2 start npm --name "temporal-docs" -- start
+
+# 设置开机自启
+pm2 startup
+pm2 save
+```
+
+#### 使用 Nginx 反向代理
+
+```nginx
+server {
+    listen 80;
+    server_name docs.temporal.cn;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
 }
 ```
 
-#### 步骤 4：配置 GitHub Pages
+### 4. Netlify 部署
 
-1. 访问你的 GitHub 仓库
-2. 点击 **Settings** → **Pages**
-3. 在 **Build and deployment** 下：
-   - Source: 选择 **GitHub Actions**
-4. 保存设置
+1. **连接 GitHub 仓库到 Netlify**
 
-#### 步骤 5：推送代码
+2. **构建设置**
+   - Build command: `pnpm run build`
+   - Publish directory: `.next`
+
+3. **环境变量**
+   在 Netlify 设置中添加 `NODE_VERSION=18`
+
+### 5. 静态导出部署
+
+Next.js 支持静态导出，可以部署到任何静态托管服务。
+
+#### 配置静态导出
+
+在 `next.config.ts` 中添加：
+
+```typescript
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+};
+```
+
+#### 构建和部署
 
 ```bash
-git add .
-git commit -m "chore: add GitHub Pages deployment"
-git push origin main
+pnpm run build
 ```
 
-部署会自动开始，完成后访问：
+构建完成后，将 `out` 目录上传到：
+- GitHub Pages
+- AWS S3 + CloudFront
+- 阿里云 OSS
+- 腾讯云 COS
+
+## 性能优化
+
+### 1. 启用 ISR (Incremental Static Regeneration)
+
+对于频繁更新的文档页面，可以使用 ISR：
+
+```typescript
+export const revalidate = 3600; // 1小时重新生成一次
 ```
-https://your-username.github.io/temporal-docs-cn/
+
+### 2. 图片优化
+
+使用 Next.js Image 组件优化图片加载：
+
+```typescript
+import Image from 'next/image';
+
+<Image
+  src="/logo.png"
+  alt="Temporal Logo"
+  width={200}
+  height={100}
+  priority
+/>
 ```
 
----
+### 3. 代码分割
 
-## 注意事项
+Next.js 自动进行代码分割，确保按需加载页面。
 
-### GitHub Pages 限制
+### 4. CDN 配置
 
-1. **不支持 API Routes**
-   - 不能使用 `/app/api/` 路由
-   - 所有数据必须是静态的
+配置 CDN 加速静态资源：
+- Vercel: 自动配置
+- 自建: 使用 Cloudflare 或 AWS CloudFront
 
-2. **图片优化**
-   - 必须设置 `images: { unoptimized: true }`
-   - 或使用外部图片服务
+## 监控和日志
 
-3. **路由问题**
-   - 所有链接必须是绝对路径
-   - 使用 `<Link>` 组件会自动处理
-
-### base path 配置
-
-如果你的仓库是：
-- `username.github.io` → `basePath: ''`（空字符串）
-- `username/my-project` → `basePath: '/my-project'`
-
-### 本地测试
-
-部署前本地测试：
+### Vercel Analytics
 
 ```bash
-# 构建静态文件
-pnpm build
-
-# 本地预览
-npx serve out -p 3000
+pnpm add @vercel/analytics
 ```
 
----
+在 `app/layout.tsx` 中添加：
 
-## 对比：Vercel vs GitHub Pages
+```typescript
+import { Analytics } from '@vercel/analytics/react';
 
-| 特性 | Vercel | GitHub Pages |
-|------|--------|--------------|
-| 设置难度 | ⭐ 简单 | ⭐⭐⭐ 复杂 |
-| Next.js 支持 | ✅ 完整支持 | ⚠️ 仅静态 |
-| API Routes | ✅ 支持 | ❌ 不支持 |
-| ISR | ✅ 支持 | ❌ 不支持 |
-| 免费额度 | ✅ 慷慨 | ✅ 有限制 |
-| 自定义域名 | ✅ 支持 | ✅ 支持 |
-| 部署速度 | ⚡ 快 | 🐢 较慢 |
+export default function RootLayout({ children }) {
+  return (
+    <html lang="zh-CN">
+      <body>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+```
 
-**推荐：** 如果项目需要 API 或服务器功能，使用 Vercel；如果是纯静态文档站，可以使用 GitHub Pages。
+### 错误监控
+
+集成 Sentry 进行错误监控：
+
+```bash
+pnpm add @sentry/nextjs
+```
+
+## 常见问题
+
+### Q: 构建时内存不足怎么办？
+
+A: 增加 Node.js 内存限制：
+```bash
+NODE_OPTIONS="--max-old-space-size=4096" pnpm run build
+```
+
+### Q: 如何添加新的文档页面？
+
+A: 在 `src/app/docs/` 目录下创建新的页面路由：
+```
+src/app/docs/your-new-page/page.tsx
+```
+
+并在 `src/lib/docs-config.ts` 中更新导航配置。
+
+### Q: 如何自定义样式？
+
+A: 修改 `tailwind.config.ts` 和 `src/app/globals.css` 文件。
+
+### Q: 部署后页面显示 404？
+
+A: 检查：
+1. 路由是否正确配置
+2. 静态导出是否包含所有页面
+3. 服务器配置是否正确
+
+## 更新维护
+
+### 更新依赖
+
+```bash
+pnpm update
+```
+
+### 更新文档内容
+
+1. 编辑 `src/app/docs/` 下的页面文件
+2. 提交更改
+3. 自动部署触发（使用 Vercel/Netlify）
+
+### 同步官方文档
+
+定期检查 [Temporal 官方文档](https://docs.temporal.io) 的更新，同步到中文版本。
+
+## 贡献指南
+
+欢迎贡献代码和翻译改进！
+
+1. Fork 项目
+2. 创建特性分支
+3. 提交更改
+4. 创建 Pull Request
+
+## 许可证
+
+本项目遵循与 Temporal 官方文档相同的许可证。
+
+## 联系方式
+
+- GitHub Issues: [项目 Issues](https://github.com/your-repo/issues)
+- 社区: [Temporal Slack](https://temporal.io/slack)
+
+## 相关链接
+
+- [Temporal 官方文档](https://docs.temporal.io)
+- [Temporal GitHub](https://github.com/temporalio/temporal)
+- [Next.js 文档](https://nextjs.org/docs)
+- [shadcn/ui](https://ui.shadcn.com)

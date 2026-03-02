@@ -8,7 +8,6 @@
     "css": "src/app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
-"cssVariables" : true ,  
     "prefix": ""
   },
   "aliases": {
