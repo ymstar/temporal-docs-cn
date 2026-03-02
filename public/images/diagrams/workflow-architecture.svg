@@ -1,0 +1,45 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+  
+  <!-- Title -->
+  <text x="400" y="50" font-family="system-ui" font-size="28" font-weight="bold" text-anchor="middle" fill="#1e293b">
+    Temporal 工作流架构
+  </text>
+  
+  <!-- Client Box -->
+  <rect x="50" y="100" width="140" height="80" rx="8" fill="#3b82f6" />
+  <text x="120" y="145" font-family="system-ui" font-size="14" fill="white" text-anchor="middle">Client</text>
+  
+  <!-- Temporal Server Box -->
+  <rect x="280" y="80" width="240" height="120" rx="8" fill="url(#grad1)" />
+  <text x="400" y="140" font-family="system-ui" font-size="16" fill="white" text-anchor="middle" font-weight="bold">Temporal Server</text>
+  <text x="400" y="165" font-family="system-ui" font-size="12" fill="white" text-anchor="middle">Frontend / History / Matching</text>
+  
+  <!-- Worker Box -->
+  <rect x="610" y="100" width="140" height="80" rx="8" fill="#22c55e" />
+  <text x="680" y="145" font-family="system-ui" font-size="14" fill="white" text-anchor="middle">Worker</text>
+  
+  <!-- Database Box -->
+  <rect x="320" y="260" width="160" height="60" rx="8" fill="#f59e0b" />
+  <text x="400" y="295" font-family="system-ui" font-size="14" fill="white" text-anchor="middle">Database</text>
+  
+  <!-- Arrows -->
+  <line x1="190" y1="140" x2="280" y2="140" stroke="#64748b" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="520" y1="140" x2="610" y2="140" stroke="#64748b" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="400" y1="200" x2="400" y2="260" stroke="#64748b" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <!-- Arrow head definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+  </defs>
+</svg>
