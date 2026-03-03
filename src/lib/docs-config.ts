@@ -29,10 +29,12 @@ export const docsNavigation: DocSection[] = [
         href: "/docs/develop/workflows",
         description: "定义和执行工作流",
         items: [
-          { title: "工作流定义", href: "/docs/develop/workflows/definition" },
-          { title: "工作流执行", href: "/docs/develop/workflows/execution" },
-          { title: "工作流确定性", href: "/docs/develop/workflows/determinism" },
-        ],
+            { title: "工作流定义", href: "/docs/develop/workflows/definition" },
+            { title: "工作流执行", href: "/docs/develop/workflows/execution" },
+            { title: "工作流确定性", href: "/docs/develop/workflows/determinism" },
+            { title: "子工作流", href: "/docs/develop/child-workflows" },
+            { title: "工作流选项", href: "/docs/develop/workflow-options" },
+          ],
       },
       { 
         title: "活动", 
@@ -63,6 +65,11 @@ export const docsNavigation: DocSection[] = [
         title: "更新", 
         href: "/docs/develop/updates",
         description: "同步更新工作流状态",
+      },
+      { 
+        title: "错误处理", 
+        href: "/docs/develop/errors",
+        description: "处理工作流和活动中的错误",
       },
     ],
   },
