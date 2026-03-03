@@ -2,11 +2,8 @@
 set -Eeuo pipefail
 
 PORT=5001
-COZE_WORKSPACE_PATH="${COZE_WORKSPACE_PATH:-$(pwd)}"
 NODE_ENV=development
 DEPLOY_RUN_PORT=5001
-
-cd "${COZE_WORKSPACE_PATH}"
 
 kill_port_if_listening() {
     local pids

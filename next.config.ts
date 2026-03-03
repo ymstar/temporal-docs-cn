@@ -4,7 +4,6 @@ import path from 'path';
 const nextConfig: NextConfig = {
   // outputFileTracingRoot: path.resolve(__dirname, '../../'),
   /* config options here */
-  allowedDevOrigins: ['*.dev.coze.site'],
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -12,13 +11,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'lf-coze-web-cdn.coze.cn',
-        pathname: '/**',
-      },
-    ],
     formats: ['image/avif', 'image/webp'],
   },
   // 性能优化
