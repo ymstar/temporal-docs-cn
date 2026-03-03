@@ -29,7 +29,7 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
     <div className={cn('space-y-1')}>
       <div className="flex items-center justify-between group">
         <Link
-          href={hasChildren ? '#' : item.href}
+          href={item.href}
           className={cn(
             'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors w-full',
             isActive
@@ -37,15 +37,18 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
             level > 0 && 'pl-6'
           )}
-          onClick={(e) => {
-            if (hasChildren) {
-              e.preventDefault();
-              setIsOpen(!isOpen);
-            }
-          }}
         >
           {hasChildren ? (
-            <Folder className="h-4 w-4 flex-shrink-0" />
+            <button
+              onClick={handleToggle}
+              className="h-4 w-4 flex-shrink-0 flex items-center justify-center"
+            >
+              {isOpen ? (
+                <ChevronDown className="h-4 w-4 text-gray-500" />
+              ) : (
+                <ChevronRight className="h-4 w-4 text-gray-500" />
+              )}
+            </button>
           ) : (
             <FileText className="h-4 w-4 flex-shrink-0" />
           )}
@@ -56,18 +59,6 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
             </span>
           )}
         </Link>
-        {hasChildren && (
-          <button
-            onClick={handleToggle}
-            className="p-1 hover:bg-gray-100 rounded"
-          >
-            {isOpen ? (
-              <ChevronDown className="h-4 w-4 text-gray-500" />
-            ) : (
-              <ChevronRight className="h-4 w-4 text-gray-500" />
-            )}
-          </button>
-        )}
       </div>
       {isOpen && hasChildren && (
         <div className="space-y-1 mt-1">
