@@ -104,16 +104,7 @@ export const docsNavigation: DocSection[] = [
       { title: "temporal 命令参考", href: "/docs/cli/temporal", description: "temporal CLI 命令参考" },
     ],
   },
-  {
-    title: "参考文档",
-    items: [
-      { title: "API 参考", href: "/docs/reference/api", description: "Temporal API 完整参考" },
-      { title: "数据模型", href: "/docs/reference/data-model", description: "Temporal 数据模型" },
-      { title: "错误处理", href: "/docs/reference/error-handling", description: "错误处理最佳实践" },
-      { title: "版本控制", href: "/docs/reference/versioning", description: "工作流版本控制" },
-      { title: "可观测性", href: "/docs/reference/observability", description: "指标、日志和追踪" },
-    ],
-  },
+
   {
     title: "资源与社区",
     items: [
