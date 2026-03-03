@@ -35,7 +35,8 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
             isActive
               ? 'bg-blue-50 text-blue-700 font-medium'
               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
-            level > 0 && 'pl-6'
+            level === 1 && 'pl-6',
+            level === 2 && 'pl-9'
           )}
         >
           {hasChildren ? (
