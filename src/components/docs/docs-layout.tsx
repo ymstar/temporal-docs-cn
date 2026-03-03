@@ -11,10 +11,10 @@ interface DocsLayoutProps {
 
 export function DocsLayout({ children }: DocsLayoutProps) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <DocsHeader />
-      <div className="flex">
-        <aside className="w-64 flex-shrink-0 hidden lg:block">
+      <div className="flex flex-1">
+        <aside className="w-64 flex-shrink-0 hidden lg:block h-full">
           <DocsSidebar />
         </aside>
         <main className="flex-1 min-w-0">
@@ -22,7 +22,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             <article>{children}</article>
           </div>
         </main>
-        <aside className="w-64 flex-shrink-0 hidden xl:block p-4">
+        <aside className="w-64 flex-shrink-0 hidden xl:block p-4 h-full">
           <TableOfContents />
         </aside>
       </div>

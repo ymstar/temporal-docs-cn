@@ -84,7 +84,7 @@ export function DocsSidebar() {
   const pathname = usePathname();
 
   return (
-    <ScrollArea className="h-[calc(100vh-4rem)] border-r bg-gray-50/50">
+    <ScrollArea className="h-full border-r bg-gray-50/50">
       <div className="p-4 space-y-6">
         {docsNavigation.map((section) => (
           <div key={section.title}>
