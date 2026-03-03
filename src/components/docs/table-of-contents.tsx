@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 interface TocItem {
@@ -14,6 +15,7 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ className }: TableOfContentsProps) {
+  const pathname = usePathname();
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -49,7 +51,7 @@ export function TableOfContents({ className }: TableOfContentsProps) {
     });
 
     setItems(tocItems);
-  }, []);
+  }, [pathname]);
 
   // 监听滚动，高亮当前可见的章节
   useEffect(() => {
