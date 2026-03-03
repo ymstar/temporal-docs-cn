@@ -30,7 +30,9 @@ export const docsNavigation: DocSection[] = [
         description: "定义和执行工作流",
         items: [
             { title: "工作流定义", href: "/docs/develop/workflows/definition" },
-            { title: "工作流执行", href: "/docs/develop/workflows/execution" },
+            { title: "工作流执行", href: "/docs/develop/workflows/execution", items: [
+              { title: "Workflow Id 和 Run Id", href: "/docs/develop/workflows/execution/workflowid-runid" }
+            ] },
             { title: "工作流确定性", href: "/docs/develop/workflows/determinism" },
             { title: "子工作流", href: "/docs/develop/child-workflows" },
             { title: "工作流选项", href: "/docs/develop/workflow-options" },
