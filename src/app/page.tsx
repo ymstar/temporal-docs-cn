@@ -77,16 +77,22 @@ export default function Home() {
               <span>基于 Temporal 官方文档的中文翻译</span>
             </div>
             
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-4">
               Temporal 中文文档
             </h1>
-            
-            <p className="mx-auto mt-6 max-w-2xl text-xl text-blue-100 leading-relaxed">
-              开发可靠的分布式系统。Temporal 是一个开源的、可靠的分布式任务编排平台。
+            <p className="text-2xl sm:text-3xl font-light text-blue-100 mb-8">
+              可靠的分布式任务编排平台
             </p>
             
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 text-base px-8 py-6 shadow-lg hover:shadow-xl transition-all" asChild>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100 leading-relaxed">
+              Temporal 是一个开源的分布式任务编排平台，帮助开发者构建容错、可扩展的分布式系统。
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100 leading-relaxed">
+              本站提供完整的中文文档，包括快速开始、开发指南、SDK 参考和部署文档。
+            </p>
+            
+            <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 text-base px-8 py-6 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1" asChild>
                 <Link href="/docs/quickstart/what-is-temporal">
                   <Zap className="mr-2 h-5 w-5" />
                   快速开始
@@ -94,14 +100,14 @@ export default function Home() {
                 </Link>
               </Button>
               
-              <Button size="lg" variant="ghost" className="border-2 border-white text-white hover:bg-white/10 text-base px-8 py-6" asChild>
+              <Button size="lg" variant="ghost" className="border-2 border-white text-white hover:bg-white/10 text-base px-8 py-6 transform hover:-translate-y-1 transition-all" asChild>
                 <Link href="/docs/quickstart/hello-world">
                   Hello World 教程
                 </Link>
               </Button>
             </div>
             
-            <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-blue-200">
+            <div className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-blue-200">
               <div className="flex items-center gap-2">
                 <CheckIcon className="h-4 w-4" />
                 <span>开源免费</span>

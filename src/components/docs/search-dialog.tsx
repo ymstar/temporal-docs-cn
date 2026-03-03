@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { Search, X, FileText, BookOpen, Zap } from 'lucide-react';
+import { Search, X, FileText, BookOpen, Zap, Server, Terminal, Book, Users } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,23 +19,65 @@ interface DocPage {
 // 文档页面索引
 const DOCS_INDEX: DocPage[] = [
   // 快速开始
-  { title: '什么是 Temporal', description: '了解 Temporal 的核心概念和用途', path: '/docs/quickstart/what-is-temporal', category: '快速开始' },
+  { title: '什么是 Temporal', description: '了解 Temporal 的核心概念和价值', path: '/docs/quickstart/what-is-temporal', category: '快速开始' },
   { title: '安装 Temporal', description: '安装 Temporal CLI 和本地开发环境', path: '/docs/quickstart/install', category: '快速开始' },
-  { title: 'Hello World', description: '在 5 分钟内创建并运行第一个工作流', path: '/docs/quickstart/hello-world', category: '快速开始' },
-  { title: '运行第一个工作流', description: '快速体验 Temporal 的核心功能', path: '/docs/quickstart/your-first-workflow', category: '快速开始' },
+  { title: '运行第一个工作流', description: '在 5 分钟内创建并运行第一个工作流', path: '/docs/quickstart/your-first-workflow', category: '快速开始' },
+  { title: 'Hello World', description: '学习 Temporal 的基本概念', path: '/docs/quickstart/hello-world', category: '快速开始' },
   
   // 开发指南
   { title: '工作流', description: '定义和执行工作流', path: '/docs/develop/workflows', category: '开发指南' },
-  { title: '活动', description: '定义和执行活动', path: '/docs/develop/activities', category: '开发指南' },
-  { title: '工作流选项', description: '配置工作流执行选项', path: '/docs/develop/workflow-options', category: '开发指南' },
+  { title: '工作流定义', description: '定义工作流的基本结构', path: '/docs/develop/workflows/definition', category: '开发指南' },
+  { title: '工作流执行', description: '工作流的执行过程和生命周期', path: '/docs/develop/workflows/execution', category: '开发指南' },
+  { title: '工作流确定性', description: '确保工作流的确定性执行', path: '/docs/develop/workflows/determinism', category: '开发指南' },
+  { title: '活动', description: '在活动中执行代码', path: '/docs/develop/activities', category: '开发指南' },
+  { title: '活动定义', description: '定义活动的基本结构', path: '/docs/develop/activities/definition', category: '开发指南' },
+  { title: '活动重试', description: '活动执行失败后的重试机制', path: '/docs/develop/activities/retry', category: '开发指南' },
+  { title: '活动超时', description: '活动执行的超时设置', path: '/docs/develop/activities/timeout', category: '开发指南' },
+  { title: '工作流与活动', description: '组合工作流和活动', path: '/docs/develop/workflow-activities', category: '开发指南' },
+  { title: '信号', description: '向运行中的工作流发送数据', path: '/docs/develop/signals', category: '开发指南' },
+  { title: '查询', description: '查询工作流状态', path: '/docs/develop/queries', category: '开发指南' },
+  { title: '更新', description: '同步更新工作流状态', path: '/docs/develop/updates', category: '开发指南' },
+  { title: '子工作流', description: '在子工作流中编排复杂逻辑', path: '/docs/develop/child-workflows', category: '开发指南' },
   { title: '错误处理', description: '处理工作流和活动中的错误', path: '/docs/develop/errors', category: '开发指南' },
   { title: '版本控制', description: '安全地更新工作流代码', path: '/docs/develop/versioning', category: '开发指南' },
-  { title: '信号', description: '向运行中的工作流发送信号', path: '/docs/develop/signals', category: '开发指南' },
-  { title: '查询', description: '查询工作流状态', path: '/docs/develop/queries', category: '开发指南' },
-  { title: '子工作流', description: '在子工作流中编排复杂逻辑', path: '/docs/develop/child-workflows', category: '开发指南' },
+  { title: '工作流选项', description: '配置工作流执行选项', path: '/docs/develop/workflow-options', category: '开发指南' },
   
   // SDK 指南
-  { title: 'Java SDK', description: 'Temporal Java SDK 完整指南', path: '/docs/sdk/java', category: 'SDK 指南' },
+  { title: 'Go SDK', description: '使用 Go 语言开发 Temporal 应用', path: '/docs/sdk/go', category: 'SDK 指南' },
+  { title: 'Java SDK', description: '使用 Java 语言开发 Temporal 应用', path: '/docs/sdk/java', category: 'SDK 指南' },
+  { title: 'Python SDK', description: '使用 Python 语言开发 Temporal 应用', path: '/docs/sdk/python', category: 'SDK 指南' },
+  { title: 'TypeScript SDK', description: '使用 TypeScript 语言开发 Temporal 应用', path: '/docs/sdk/typescript', category: 'SDK 指南' },
+  { title: '.NET SDK', description: '使用 .NET 开发 Temporal 应用', path: '/docs/sdk/dotnet', category: 'SDK 指南' },
+  { title: 'PHP SDK', description: '使用 PHP 开发 Temporal 应用', path: '/docs/sdk/php', category: 'SDK 指南' },
+  
+  // 部署
+  { title: '部署概述', description: '了解 Temporal 集群部署选项', path: '/docs/cluster-deployment/overview', category: '部署' },
+  { title: '本地部署', description: '在本地运行 Temporal 集群', path: '/docs/cluster-deployment/local', category: '部署' },
+  { title: '生产部署', description: '在生产环境中部署 Temporal', path: '/docs/cluster-deployment/production', category: '部署' },
+  { title: 'Docker 部署', description: '使用 Docker 部署 Temporal', path: '/docs/cluster-deployment/docker', category: '部署' },
+  { title: 'Kubernetes 部署', description: '在 Kubernetes 上部署 Temporal', path: '/docs/cluster-deployment/kubernetes', category: '部署' },
+  { title: '配置', description: '配置 Temporal 服务器', path: '/docs/cluster-deployment/configuration', category: '部署' },
+  { title: '安全', description: 'Temporal 安全最佳实践', path: '/docs/cluster-deployment/security', category: '部署' },
+  
+  // Temporal CLI
+  { title: 'CLI 概述', description: 'Temporal 命令行工具概览', path: '/docs/cli', category: 'Temporal CLI' },
+  { title: 'tctl 命令参考', description: 'tctl 命令完整参考', path: '/docs/cli/tctl', category: 'Temporal CLI' },
+  { title: 'temporal 命令参考', description: 'temporal CLI 命令参考', path: '/docs/cli/temporal', category: 'Temporal CLI' },
+  
+  // 参考文档
+  { title: 'API 参考', description: 'Temporal API 完整参考', path: '/docs/reference/api', category: '参考文档' },
+  { title: '数据模型', description: 'Temporal 数据模型', path: '/docs/reference/data-model', category: '参考文档' },
+  { title: '错误处理', description: '错误处理最佳实践', path: '/docs/reference/error-handling', category: '参考文档' },
+  { title: '版本控制', description: '工作流版本控制', path: '/docs/reference/versioning', category: '参考文档' },
+  { title: '可观测性', description: '指标、日志和追踪', path: '/docs/reference/observability', category: '参考文档' },
+  
+  // 资源与社区
+  { title: '示例应用', description: '示例应用程序和教程', path: '/docs/resources/sample-apps', category: '资源与社区' },
+  { title: '最佳实践', description: 'Temporal 开发最佳实践', path: '/docs/resources/best-practices', category: '资源与社区' },
+  { title: '常见问题', description: '常见问题解答', path: '/docs/resources/faq', category: '资源与社区' },
+  { title: '贡献指南', description: '如何贡献文档', path: '/docs/resources/contributing', category: '资源与社区' },
+  { title: '社区', description: '加入 Temporal 社区', path: '/docs/resources/community', category: '资源与社区' },
+  { title: '更新日志', description: 'Temporal 更新日志', path: '/docs/resources/changelog', category: '资源与社区' },
 ];
 
 export function SearchDialog() {
@@ -150,6 +192,10 @@ export function SearchDialog() {
                         {doc.category === '快速开始' && <Zap className="h-5 w-5 text-orange-500" />}
                         {doc.category === '开发指南' && <BookOpen className="h-5 w-5 text-blue-500" />}
                         {doc.category === 'SDK 指南' && <FileText className="h-5 w-5 text-purple-500" />}
+                        {doc.category === '部署' && <Server className="h-5 w-5 text-green-500" />}
+                        {doc.category === 'Temporal CLI' && <Terminal className="h-5 w-5 text-gray-500" />}
+                        {doc.category === '参考文档' && <Book className="h-5 w-5 text-indigo-500" />}
+                        {doc.category === '资源与社区' && <Users className="h-5 w-5 text-teal-500" />}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">

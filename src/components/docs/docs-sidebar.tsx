@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, ChevronDown, FileText, Folder } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { docsNavigation, DocItem } from '@/lib/docs-config';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,11 +19,17 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
   const isActive = pathname === item.href;
   const hasChildren = item.items && item.items.length > 0;
 
+  const handleToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className={cn('space-y-1')}>
       <div className="flex items-center justify-between group">
         <Link
-          href={item.href}
+          href={hasChildren ? '#' : item.href}
           className={cn(
             'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors w-full',
             isActive
@@ -31,8 +37,9 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
             level > 0 && 'pl-6'
           )}
-          onClick={() => {
+          onClick={(e) => {
             if (hasChildren) {
+              e.preventDefault();
               setIsOpen(!isOpen);
             }
           }}
@@ -51,7 +58,7 @@ function SidebarItem({ item, level = 0 }: SidebarItemProps) {
         </Link>
         {hasChildren && (
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={handleToggle}
             className="p-1 hover:bg-gray-100 rounded"
           >
             {isOpen ? (

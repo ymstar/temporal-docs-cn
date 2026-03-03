@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /_proxy/
+Disallow: /_vercel/
+
+# Host
+Host: https://www.temporalcn.site
+
+# Sitemaps
+Sitemap: https://www.temporalcn.site/sitemap.xml
+Sitemap: https://www.temporalcn.site/sitemap-0.xml
