@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, GitBranch } from 'lucide-react';
+import { ArrowRight, GitBranch, Workflow, Repeat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -13,34 +13,109 @@ export default function WorkflowActivities() {
     <div className="prose prose-blue max-w-none">
       <h1 className="text-4xl font-bold mb-4">工作流与活动</h1>
       <p className="text-xl text-gray-600 mb-8">
-        学习如何在工作流中调用活动，实现复杂的业务逻辑。
+        工作流负责编排，活动负责执行副作用。把两者边界划清，是 Temporal 应用可维护的关键。
       </p>
 
+      <h2 className="text-3xl font-bold mt-12 mb-6">编排示例（Go）</h2>
       <div className="my-8">
         <Card className="bg-gray-900 text-white border-0">
           <CardContent className="pt-6">
             <pre className="text-sm font-mono overflow-x-auto">
-{`// 在工作流中执行活动
-func MyWorkflow(ctx workflow.Context) error {
-    // 设置活动选项
+{`func OrderWorkflow(ctx workflow.Context, orderID string) error {
     ao := workflow.ActivityOptions{
-        StartToCloseTimeout: 10 * time.Second,
+        StartToCloseTimeout: 30 * time.Second,
+        RetryPolicy: &temporal.RetryPolicy{
+            InitialInterval: time.Second,
+            MaximumAttempts: 5,
+        },
     }
     ctx = workflow.WithActivityOptions(ctx, ao)
-    
-    // 执行活动
-    var result string
-    err := workflow.ExecuteActivity(ctx, MyActivity, "param").Get(ctx, &result)
-    if err != nil {
+
+    if err := workflow.ExecuteActivity(ctx, ValidateOrderActivity, orderID).Get(ctx, nil); err != nil {
         return err
     }
-    
-    return nil
+
+    var paymentID string
+    if err := workflow.ExecuteActivity(ctx, ChargePaymentActivity, orderID).Get(ctx, &paymentID); err != nil {
+        return err
+    }
+
+    return workflow.ExecuteActivity(ctx, CreateShipmentActivity, orderID, paymentID).Get(ctx, nil)
 }`}
             </pre>
           </CardContent>
         </Card>
       </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Workflow className="h-5 w-5" />
+              Workflow
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            只保留确定性逻辑：编排步骤、分支、补偿、重放安全代码。
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <GitBranch className="h-5 w-5" />
+              Activity
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            执行外部调用和副作用：数据库、HTTP、消息队列、第三方服务。
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Repeat className="h-5 w-5" />
+              失败恢复
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            通过活动超时 + 重试策略控制失败恢复，避免把重试逻辑散落在业务代码。
+          </CardContent>
+        </Card>
+      </div>
+
+      <h2 className="text-3xl font-bold mt-12 mb-6">官方参考</h2>
+      <ul className="space-y-2">
+        <li>
+          <Link 
+            href="https://docs.temporal.io/workflows" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
+          >
+            Workflows
+          </Link>
+        </li>
+        <li>
+          <Link 
+            href="https://docs.temporal.io/activities" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
+          >
+            Activities
+          </Link>
+        </li>
+        <li>
+          <Link 
+            href="https://docs.temporal.io/activity-execution" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
+          >
+            Activity Execution
+          </Link>
+        </li>
+      </ul>
 
       <div className="my-12 p-6 bg-blue-50 rounded-lg border border-blue-200">
         <Button asChild>
