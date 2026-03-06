@@ -428,7 +428,7 @@ export default function Home() {
 
             <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400 text-sm">
-                © 2024 Temporal 中文文档 · 社区翻译项目
+                © 2026 Temporal 中文文档 · 社区翻译项目
               </p>
               <p className="text-gray-500 text-sm">
                 本文档为社区维护的中文翻译版本
