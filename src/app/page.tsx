@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <header className="sticky top-10 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
         <div className="container flex h-16 items-center">
           <Link href="/" className="flex items-center space-x-2 mr-6">
             <div className="h-8 w-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
@@ -41,6 +41,12 @@ export default function Home() {
               className="text-gray-600 transition-colors hover:text-gray-900"
             >
               示例
+            </Link>
+            <Link
+              href="/sponsor"
+              className="text-gray-600 transition-colors hover:text-gray-900"
+            >
+              赞助
             </Link>
           </nav>
 
@@ -353,6 +359,11 @@ export default function Home() {
                   <li>
                     <Link href="/docs/resources/community" className="hover:text-white transition-colors">
                       社区资源
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/sponsor" className="hover:text-white transition-colors">
+                      赞助支持
                     </Link>
                   </li>
                 </ul>

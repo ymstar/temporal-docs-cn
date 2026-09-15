@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inspector } from 'react-dev-inspector';
 import { Analytics } from '@vercel/analytics/next';
+import { ShutdownNotice } from '@/components/site/shutdown-notice';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -118,7 +119,8 @@ export default function RootLayout({
             gtag('config', 'G-XV2CN1MKXH');
           `
       }} />
-      <body className="antialiased">
+      <body className="antialiased pt-10">
+        <ShutdownNotice />
         {isDev && <Inspector />}
         {children}
         <Analytics />

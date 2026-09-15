@@ -11,7 +11,7 @@ export function DocsHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-10 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="container flex h-16 items-center">
         <Link href="/" className="flex items-center space-x-2 mr-6">
           <div className="h-8 w-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
@@ -57,6 +57,15 @@ export function DocsHeader() {
             )}
           >
             示例
+          </Link>
+          <Link
+            href="/sponsor"
+            className={cn(
+              'transition-colors hover:text-gray-900',
+              pathname === '/sponsor' ? 'text-gray-900' : 'text-gray-600'
+            )}
+          >
+            赞助
           </Link>
         </nav>
 

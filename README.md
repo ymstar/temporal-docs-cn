@@ -92,6 +92,30 @@ pnpm run start
 
 本项目遵循与 Temporal 官方文档相同的许可证。
 
+## 💝 赞助
+
+本站是个人维护的 Temporal 中文文档翻译项目，免费开放给中文开发者社区。随着访问量增长，Vercel 部署成本也在上涨。如果这个项目对您有帮助，欢迎赞助支持，让站点能持续运营。
+
+### 赞助方式
+
+| 微信 | 支付宝 |
+|:---:|:---:|
+| ![微信收款码](public/wechat.png) | ![支付宝收款码](public/alipay.jpg) |
+
+### 赞助者名单
+
+> 赞助后请通过 [GitHub Issue](https://github.com/ymstar/temporal-docs-cn/issues) 留言告知，您的名字将添加到下方名单和网站赞助页面中。
+
+| 赞助者 | 金额 | 日期 | 留言 |
+|--------|------|------|------|
+| _等待第一位赞助者_ | — | — | — |
+
+### 其他支持方式
+
+- ⭐ 给项目点 [Star](https://github.com/ymstar/temporal-docs-cn)，让更多人发现本站
+- 📝 提交 PR 改进翻译质量，或帮忙翻译未完成的页面
+- 📢 把本站分享给身边使用 Temporal 的开发者朋友
+
 ## 致谢
 
 感谢 [Temporal](https://temporal.io) 团队提供的优秀产品和技术文档。
