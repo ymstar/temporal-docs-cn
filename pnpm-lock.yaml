@@ -158,6 +158,9 @@ importers:
       react-day-picker:
         specifier: ^9.13.0
         version: 9.14.0(react@19.2.3)
+      react-dev-inspector:
+        specifier: ^2.0.1
+        version: 2.0.1(@types/react@19.2.14)(eslint@9.39.3(jiti@1.21.7))(react@19.2.3)(typescript@5.9.3)(webpack@5.105.3(esbuild@0.25.12))
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
@@ -219,9 +222,6 @@ importers:
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
-      react-dev-inspector:
-        specifier: ^2.0.1
-        version: 2.0.1(@types/react@19.2.14)(eslint@9.39.3(jiti@1.21.7))(react@19.2.3)(typescript@5.9.3)(webpack@5.105.3(esbuild@0.25.12))
       shadcn:
         specifier: latest
         version: 3.8.5(@cfworker/json-schema@4.1.1)(@types/node@20.19.35)(typescript@5.9.3)
