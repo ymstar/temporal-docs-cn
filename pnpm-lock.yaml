@@ -101,9 +101,24 @@ importers:
       '@supabase/supabase-js':
         specifier: 2.95.3
         version: 2.95.3
+      '@types/node':
+        specifier: ^20
+        version: 20.19.35
+      '@types/pg':
+        specifier: ^8.16.0
+        version: 8.16.0
+      '@types/react':
+        specifier: ^19
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.14)
       '@vercel/analytics':
         specifier: ^1.6.1
         version: 1.6.1(next@15.5.12(@babel/core@7.29.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
+      autoprefixer:
+        specifier: ^10.4.27
+        version: 10.4.27(postcss@8.5.6)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -152,6 +167,9 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.19.0
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -179,6 +197,12 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.1
+      tailwindcss:
+        specifier: ^3
+        version: 3.4.19(yaml@1.10.2)
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.19(yaml@1.10.2))
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -195,21 +219,6 @@ importers:
       '@react-dev-inspector/middleware':
         specifier: ^2.0.1
         version: 2.0.1(eslint@9.39.3(jiti@1.21.7))(typescript@5.9.3)(webpack@5.105.3(esbuild@0.25.12))
-      '@types/node':
-        specifier: ^20
-        version: 20.19.35
-      '@types/pg':
-        specifier: ^8.16.0
-        version: 8.16.0
-      '@types/react':
-        specifier: ^19
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.2.3(@types/react@19.2.14)
-      autoprefixer:
-        specifier: ^10.4.27
-        version: 10.4.27(postcss@8.5.6)
       eslint:
         specifier: ^9
         version: 9.39.3(jiti@1.21.7)
@@ -219,18 +228,9 @@ importers:
       only-allow:
         specifier: ^1.2.2
         version: 1.2.2
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
       shadcn:
         specifier: latest
         version: 3.8.5(@cfworker/json-schema@4.1.1)(@types/node@20.19.35)(typescript@5.9.3)
-      tailwindcss:
-        specifier: ^3
-        version: 3.4.19(yaml@1.10.2)
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.19(yaml@1.10.2))
 
 packages:
 

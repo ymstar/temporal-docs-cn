@@ -68,25 +68,25 @@
     "react-dev-inspector": "^2.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3",
+    "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
     "zod": "^4.3.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "postcss": "^8.5.6",
+    "autoprefixer": "^10.4.27",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/pg": "^8.16.0"
   },
   "devDependencies": {
     "@react-dev-inspector/babel-plugin": "^2.0.1",
     "@react-dev-inspector/middleware": "^2.0.1",
-    "@types/node": "^20",
-    "@types/pg": "^8.16.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "autoprefixer": "^10.4.27",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "only-allow": "^1.2.2",
-    "postcss": "^8.5.6",
-    "shadcn": "latest",
-    "tailwindcss": "^3",
-    "tailwindcss-animate": "^1.0.7"
+    "shadcn": "latest"
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
