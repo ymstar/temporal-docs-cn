@@ -98,6 +98,10 @@ pnpm run start
 
 ### 赞助方式
 
+**爱发电（推荐，支持按月持续赞助）**：[https://afdian.com/a/aimoney](https://afdian.com/a/aimoney)
+
+**微信 / 支付宝扫码**：
+
 | 微信 | 支付宝 |
 |:---:|:---:|
 | ![微信收款码](public/wechat.png) | ![支付宝收款码](public/alipay.jpg) |

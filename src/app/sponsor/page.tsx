@@ -134,8 +134,53 @@ export default function SponsorPage() {
         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/10 to-transparent" />
       </section>
 
+      {/* 爱发电赞助 */}
+      <section className="py-20 bg-white">
+        <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+                爱发电赞助
+              </h2>
+              <p className="text-lg text-gray-600">
+                点击下方按钮，通过爱发电支持本项目（支持按月持续赞助）
+              </p>
+            </div>
+
+            <Card className="overflow-hidden border-2 hover:border-pink-400 transition-colors">
+              <CardContent className="p-6">
+                <div className="w-full max-w-[640px] mx-auto">
+                  <iframe
+                    src="https://afdian.com/leaflet?slug=aimoney"
+                    width="100%"
+                    height="200"
+                    scrolling="no"
+                    frameBorder="0"
+                    className="w-full"
+                    title="爱发电赞助"
+                  />
+                </div>
+                <div className="text-center mt-4">
+                  <Button variant="outline" asChild>
+                    <a
+                      href="https://afdian.com/a/aimoney"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Heart className="mr-2 h-4 w-4" />
+                      前往爱发电主页
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Donate Section */}
-      <section id="donate" className="py-24 bg-white">
+      <section id="donate" className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
@@ -202,7 +247,7 @@ export default function SponsorPage() {
       </section>
 
       {/* Sponsors List */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-24 bg-white">
         <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
@@ -255,7 +300,7 @@ export default function SponsorPage() {
       </section>
 
       {/* Other Ways to Contribute */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
